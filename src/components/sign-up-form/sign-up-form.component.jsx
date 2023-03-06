@@ -1,6 +1,7 @@
-import { useState  } from 'react'
+import { useState } from 'react'
 import FormInput from '../form-input/form-input'
 import Button from '../button/button.component'
+
 
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils'
 import './sign-up-form.styles.scss'
@@ -11,8 +12,6 @@ const defaultFormFields = {
     password: '',
     confirmPassword: ''
 }
-
-
 
 const SignUpForm = () => {
     const [formFields, setFormFields] = useState( defaultFormFields )
@@ -34,8 +33,10 @@ const SignUpForm = () => {
             alert('Passwords do not match')
             return
         } 
+
         try {
             const { user } = await createAuthUserWithEmailAndPassword(email, password)
+        
             await createUserDocumentFromAuth( user, { displayName })
             resetFormFields()            
         } catch(error) {
